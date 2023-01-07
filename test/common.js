@@ -16,7 +16,7 @@ let common = {
         log = [];
     },
     testIt: function(data) {
-        return aaps(data.glucose_status, data.currenttemp, data.iob_data, data.profile, data.autosens_data, data.meal_data, aaps_tbf, true, null, Date(data.glucose_status.date), true);
+        return aaps(data.glucose_status, data.currenttemp, data.iob_data, data.profile, data.autosens_data, data.meal_data, aaps_tbf, true, null, Date(data.currenttime), true);
     },      
     findInLog: function (key) {
         return common.log.find(x => typeof x === 'string' && x.startsWith(key))
