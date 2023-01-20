@@ -4,8 +4,6 @@ require('chai').should();
 
 const data = require('./data/third.js')
 
-//common.debug = true;
-
 describe('test set with third', function() {
 
   describe('third step', function() {

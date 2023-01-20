@@ -7,22 +7,23 @@ let debug = false;
 
 let common = {
     mockLog: function() {
+        log = [];
         sinon.stub(console, 'log').callsFake(logIt);
         sinon.stub(console, 'error').callsFake(logIt);
     },
     restoreLog: function() {
         console.log.restore(); 
         console.error.restore(); 
-        log = [];
     },
     testIt: function(data) {
         return aaps(data.glucose_status, data.currenttemp, data.iob_data, data.profile, data.autosens_data, data.meal_data, aaps_tbf, true, null, Date(data.currenttime), true);
     },      
     findInLog: function (key) {
-        return common.log.find(x => typeof x === 'string' && x.startsWith(key))
+        return log.find(x => typeof x === 'string' && x.startsWith(key))
     },
-    log : log,
-    debug: debug
+    setDebug: function (value) {
+        debug = value;
+    }
 }
 
 function logIt(args) {

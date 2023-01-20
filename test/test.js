@@ -1,11 +1,11 @@
 const assert = require('assert');
-const { mockLog, restoreLog, testIt, findInLog } = require('./common.js');
+const { mockLog, restoreLog, testIt, findInLog, setDebug } = require('./common.js');
 require('chai').should();
 
 const first = require('./data/first.js')
-const second = require('./data/second.js')
+const uamPlusFirst = require('./data/uam-plus-first.js')
 
-//common.debug = true;
+//setDebug(true);
 
 describe('test set', function() {
 
@@ -28,22 +28,23 @@ describe('test set', function() {
     });
   });
 
-  describe('seconds step', function() {
+  describe('uam+', function() {
     before(mockLog);
     after(restoreLog);
     let result = {}
 
     it("should pass", function() {
-      result =  testIt(second);
+      result =  testIt(uamPlusFirst);
       result.should.be.a('object')
+      result.reason.should.be.a('string')
     });
 
-    it("insulinReq should be 0", function() {
-      assert.equal(0, result.insulinReq);
+    it("Prediction must be UAM", function() {
+      findInLog('sens_predType:').should.equal('sens_predType: UAM')
     });
 
-    it("'ENactive' sould be true", function() {
-      findInLog('ENactive:').should.equal('ENactive: true')
+    it("ENW must be 'Off'", function() {
+      result.reason.should.match(/ENW\: Off/)
     });
   });
 });
