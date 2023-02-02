@@ -37,6 +37,7 @@ let common = {
     setDebug: function (value) {
         debug = value;
     },
+    debug: originalLog,
     parseLog : function(fileName) {
         let reader = new ReadLines(root + fileName);
         let result = {};
@@ -57,7 +58,7 @@ let common = {
         result.parsed = true;
         return result;
     },
-    logFields : logFields
+    logFields : logFields,
 }
 
 function logIt(args) {
